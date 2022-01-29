@@ -5,6 +5,7 @@ HELP.md
 build/
 target/
 data_mysql/
+data
 
 ### STS ###
 .apt_generated
