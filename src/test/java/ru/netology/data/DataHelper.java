@@ -22,7 +22,6 @@ public class DataHelper {
 
     private static
     Faker faker = new Faker(new Locale("en"));
-    String ApprovedCard = "4444 4444 4444 4441";
 
     public static String getRandomCard() {
         return faker.business().creditCardNumber();
