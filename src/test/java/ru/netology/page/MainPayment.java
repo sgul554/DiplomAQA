@@ -10,7 +10,7 @@ public class MainPayment {
     private SelenideElement buttonBuy = $$ ("button").find(Condition.exactText("Купить"));
     private SelenideElement buttonCredit = $$ ("button").find(Condition.exactText("Купить в кредит"));
 
-    public void mainPageVisible(){
+    public MainPayment(){
         headingPage.shouldBe(Condition.visible);
     }
 

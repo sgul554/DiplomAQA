@@ -5,10 +5,23 @@ import lombok.val;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 public class SqlHelper {
 
-    @SneakyThrows
+    private SqlHelper() {
+
+    }
+
+    @SneakyThrows(SQLException.class)
+    public static Connection getConn(){
+      final Connection connection = DriverManager.getConnection(
+             "jdbc:mysql://localhost:3306/app", "app", "pass");
+      return connection;
+     }
+
+    @SneakyThrows(SQLException.class)
     public static Connection getConnection() {
         String dbUrl = System.getProperty("db.url");
         String login = System.getProperty("login");
@@ -17,10 +30,10 @@ public class SqlHelper {
         return connection;
     }
 
-    @SneakyThrows
+    @SneakyThrows(SQLException.class)
     public static String getStatusDebitCard() {
         val statusSql = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
-        try (val connection = getConnection();
+        try (val connection = getConn();
              val statusStmt = connection.createStatement();) {
             try (val rs = statusStmt.executeQuery(statusSql)) {
                 if (rs.next()) {
@@ -32,10 +45,10 @@ public class SqlHelper {
         }
     }
 
-    @SneakyThrows
+    @SneakyThrows(SQLException.class)
     public static String getStatusCreditCard() {
         val statusSql = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-        try (val connection = getConnection();
+        try (val connection = getConn();
              val statusStmt = connection.createStatement();) {
             try (val rs = statusStmt.executeQuery(statusSql)) {
                 if (rs.next()) {
@@ -46,20 +59,24 @@ public class SqlHelper {
             }
         }
     }
+
 
     @SneakyThrows
     public static void cleanData() {
         val pays = "DELETE FROM payment_entity";
         val credits = "DELETE FROM credit_request_entity";
         val orders = "DELETE FROM order_entity";
-        try (val connection = getConnection();
-             val prepareStatPay = connection.createStatement();
-             val prepareStatCredit = connection.createStatement();
-             val prepareStatOrder = connection.createStatement();) {
+        try (val conn = SqlHelper.getConn();
+             val prepareStatPay = conn.createStatement();
+             val prepareStatCredit = conn.createStatement();
+             val prepareStatOrder = conn.createStatement();
+        ) {
             prepareStatPay.executeUpdate(pays);
             prepareStatCredit.executeUpdate(credits);
             prepareStatOrder.executeUpdate(orders);
-
         }
+
+
     }
+
 }

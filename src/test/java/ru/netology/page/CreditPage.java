@@ -2,6 +2,7 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 import ru.netology.data.DataHelper;
 
 import java.time.Duration;
@@ -61,5 +62,13 @@ public class CreditPage {
 
     public void waitErrorNecessary() {
         errorNecessary.shouldBe(Condition.visible);
+    }
+
+    public void waitErrorFormatNotVisible() {
+        errorFormat.shouldBe(Condition.not(Condition.visible));
+    }
+
+    public void cleanFieldCvv() {
+        fieldCvv.doubleClick().sendKeys(Keys.BACK_SPACE);
     }
 }

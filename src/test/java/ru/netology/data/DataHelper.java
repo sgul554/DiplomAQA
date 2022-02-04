@@ -33,7 +33,7 @@ public class DataHelper {
     }
 
     public static String getCountYear() {
-        return LocalDate.now().plusYears(faker.number().numberBetween(0, 5)).format(DateTimeFormatter.ofPattern("MM"));
+        return LocalDate.now().plusYears(faker.number().numberBetween(0, 5)).format(DateTimeFormatter.ofPattern("YY"));
     }
 
     public static String getRandomName() {
@@ -118,6 +118,10 @@ public class DataHelper {
 
     public static Card getInvalidCvv1symbol() {
         return new Card(getApprovedCardNumber(), getCountMonth(), getCountYear(), getRandomName(), "7");
+    }
+
+    public static Card getInvalidHolderEmpty() {
+        return new Card(getApprovedCardNumber(), getCountMonth(), getCountYear(), " ", getRandomCvv());
     }
 
 }
