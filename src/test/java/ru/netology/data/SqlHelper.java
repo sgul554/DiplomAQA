@@ -14,12 +14,6 @@ public class SqlHelper {
 
     }
 
-    @SneakyThrows(SQLException.class)
-    public static Connection getConn(){
-      final Connection connection = DriverManager.getConnection(
-             "jdbc:mysql://localhost:3306/app", "app", "pass");
-      return connection;
-     }
 
     @SneakyThrows(SQLException.class)
     public static Connection getConnection() {
@@ -33,7 +27,7 @@ public class SqlHelper {
     @SneakyThrows(SQLException.class)
     public static String getStatusDebitCard() {
         val statusSql = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
-        try (val connection = getConn();
+        try (val connection = getConnection();
              val statusStmt = connection.createStatement();) {
             try (val rs = statusStmt.executeQuery(statusSql)) {
                 if (rs.next()) {
@@ -48,7 +42,7 @@ public class SqlHelper {
     @SneakyThrows(SQLException.class)
     public static String getStatusCreditCard() {
         val statusSql = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-        try (val connection = getConn();
+        try (val connection = getConnection();
              val statusStmt = connection.createStatement();) {
             try (val rs = statusStmt.executeQuery(statusSql)) {
                 if (rs.next()) {
@@ -66,7 +60,7 @@ public class SqlHelper {
         val pays = "DELETE FROM payment_entity";
         val credits = "DELETE FROM credit_request_entity";
         val orders = "DELETE FROM order_entity";
-        try (val conn = SqlHelper.getConn();
+        try (val conn = SqlHelper.getConnection();
              val prepareStatPay = conn.createStatement();
              val prepareStatCredit = conn.createStatement();
              val prepareStatOrder = conn.createStatement();
