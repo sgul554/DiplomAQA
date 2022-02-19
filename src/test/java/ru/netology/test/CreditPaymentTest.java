@@ -97,7 +97,7 @@ public class CreditPaymentTest {
         val mainPage = new MainPayment();
         val payment = mainPage.clickButtonCredit();
         payment.inputData(DataHelper.getInvalidMonth00());
-        payment.waitErrorFormat();
+        payment.waitErrorDate();
     }
 
     @Test

@@ -7,6 +7,7 @@ import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -16,7 +17,7 @@ public class CreditPage {
     private SelenideElement fieldCardNumber = $("[placeholder='0000 0000 0000 0000']");
     private SelenideElement fieldMonth = $("[placeholder='08']");
     private SelenideElement fieldYear = $("[placeholder='22']");
-    private SelenideElement fieldHolder = $$("[class='input__control']").get(3);
+    private SelenideElement fieldHolder = $(byText("Владелец")).parent().$(".input__control");
     private SelenideElement fieldCvv = $("[placeholder='999']");
     private SelenideElement buttonContinue = $$("button").find(Condition.exactText("Продолжить"));
 
