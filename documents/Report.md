@@ -21,7 +21,7 @@
 * 24 успешных
 * 14 не успешных 
 
-![Отчет Allure](C:\Users\shura\Desktop\bags\Безымянный15)
+![Отчет Allure](https://github.com/sgul554/DiplomAQA/blob/master/documents/Allure.png)
 
 ## Общие рекомендации ##
 
